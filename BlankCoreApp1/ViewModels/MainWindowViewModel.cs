@@ -42,7 +42,7 @@ namespace BlankCoreApp1.ViewModels
         public void ShowViewBButtonExecute()
         {
             var p = new NavigationParameters();
-            p.Add(nameof(ViewBViewModel.MyLabel), SystemDateLabel.Value);
+            p.Add(nameof(ViewBViewModel.MyLabel.Value), SystemDateLabel.Value);
             _regionManager.RequestNavigate("ContentRegion", nameof(ViewB), p);
         }
 

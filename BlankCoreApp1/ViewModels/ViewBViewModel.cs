@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,7 @@ namespace BlankCoreApp1.ViewModels
     {
         IMessageService _messageService;
 
-        private string _myLabel = string.Empty;
-        public string MyLabel
-        {
-            get { return _myLabel; }
-            set { SetProperty(ref _myLabel, value); }
-        }
+        public ReactiveProperty<string> MyLabel { get; } = new ReactiveProperty<string>(string.Empty);
 
         public ViewBViewModel() : this(new MessageService())
         {
@@ -31,7 +27,7 @@ namespace BlankCoreApp1.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            MyLabel = navigationContext.Parameters.GetValue<string>(nameof(MyLabel));
+            MyLabel.Value = navigationContext.Parameters.GetValue<string>(nameof(MyLabel.Value));
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

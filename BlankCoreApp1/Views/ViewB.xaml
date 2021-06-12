@@ -6,7 +6,7 @@
     <Grid>
         <StackPanel>
             <Label Content="ViewB 画面" FontSize="30"/>
-            <Label Content="{Binding MyLabel}"/>
+            <Label Content="{Binding MyLabel.Value}"/>
             <TextBox />
         </StackPanel>
     </Grid>
