@@ -17,11 +17,22 @@ namespace BlankCoreApp1.ViewModels
             set { SetProperty(ref _areas, value); }
         }
 
+        private ObservableCollection<ComboBoxViewModel> _products = new ObservableCollection<ComboBoxViewModel>();
+        public ObservableCollection<ComboBoxViewModel> Products
+        {
+            get { return _products; }
+            set { SetProperty(ref _products, value); }
+        }
+
         public ViewDViewModel()
         {
             _areas.Add("神戸");
             _areas.Add("神奈川");
             _areas.Add("金沢");
+
+            _products.Add(new ComboBoxViewModel(10, "パン"));
+            _products.Add(new ComboBoxViewModel(20, "珈琲牛乳"));
+            _products.Add(new ComboBoxViewModel(30, "傘"));
         }
     }
 }

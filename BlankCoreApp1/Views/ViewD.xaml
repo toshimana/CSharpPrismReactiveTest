@@ -8,5 +8,10 @@
                  Height="100"
                  Width="200"
                  Margin="10" />
+        <ComboBox ItemsSource="{Binding Products}"
+                  SelectedValuePath="Value"
+                  DisplayMemberPath="DisplayValue"
+                  Width="150"
+                  Margin="10"/>
     </StackPanel>
 </UserControl>
