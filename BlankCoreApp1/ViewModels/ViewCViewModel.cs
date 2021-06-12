@@ -3,6 +3,7 @@ using BlankCoreApp1.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +20,9 @@ namespace BlankCoreApp1.ViewModels
         IDialogService _dialogService;
         IMessageService _messageService;
 
-        private string _viewCTextBox = "XXX";
+        public ReactiveProperty<string> ViewCTextBox { get; } = new ReactiveProperty<string>("XXX");
 
-        public string ViewCTextBox
-        {
-            get { return _viewCTextBox; }
-            set { SetProperty<string>(ref _viewCTextBox, value); }
-        }
-
-        public DelegateCommand OKButton { get; }
+        public ReactiveCommand OKButton { get; } = new ReactiveCommand();
 
         private void OKButtonExecute()
         {
@@ -42,7 +37,7 @@ namespace BlankCoreApp1.ViewModels
             }
 
             var p = new DialogParameters();
-            p.Add(nameof(ViewCTextBox), ViewCTextBox);
+            p.Add(nameof(ViewCTextBox.Value), ViewCTextBox);
             RequestClose?.Invoke(new DialogResult(ButtonResult.OK, p));
         }
 
@@ -56,7 +51,7 @@ namespace BlankCoreApp1.ViewModels
             _dialogService = dialogService;
             _messageService = messageService;
 
-            OKButton = new DelegateCommand(OKButtonExecute);
+            OKButton.WithSubscribe(OKButtonExecute);
         }
 
         public bool CanCloseDialog()
@@ -70,7 +65,7 @@ namespace BlankCoreApp1.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            ViewCTextBox = parameters.GetValue<string>(nameof(ViewCTextBox));
+            ViewCTextBox.Value = parameters.GetValue<string>(nameof(ViewCTextBox.Value));
         }
     }
 }

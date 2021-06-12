@@ -5,7 +5,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <StackPanel>
         <Label Content="ViewC 画面" FontSize="30" Foreground="Blue"/>
-        <TextBox Text="{Binding ViewCTextBox}"/>
+        <TextBox Text="{Binding ViewCTextBox.Value}"/>
         <Button Content="OK" Command="{Binding OKButton}"/>
     </StackPanel>
 </UserControl>

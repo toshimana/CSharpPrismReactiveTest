@@ -49,7 +49,7 @@ namespace BlankCoreApp1.ViewModels
         public void ShowViewCButtonExecute()
         {
             var p = new DialogParameters();
-            p.Add(nameof(ViewCViewModel.ViewCTextBox), SystemDateLabel.Value);
+            p.Add(nameof(ViewCViewModel.ViewCTextBox.Value), SystemDateLabel.Value);
             _dialogService.ShowDialog(nameof(ViewC), p, ViewCClose);
         }
 
@@ -64,7 +64,7 @@ namespace BlankCoreApp1.ViewModels
         {
             if (dialogResult.Result == ButtonResult.OK)
             {
-                SystemDateLabel.Value = dialogResult.Parameters.GetValue<string>(nameof(ViewCViewModel.ViewCTextBox));
+                SystemDateLabel.Value = dialogResult.Parameters.GetValue<string>(nameof(ViewCViewModel.ViewCTextBox.Value));
             }
         }
 
