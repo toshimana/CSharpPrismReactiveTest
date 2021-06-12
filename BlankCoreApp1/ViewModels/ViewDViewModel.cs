@@ -48,7 +48,7 @@ namespace BlankCoreApp1.ViewModels
             {
                 var selectedItem = selectedItems[0] as ComboBoxViewModel;
                 SelectedText = selectedItem.Value + ":" + selectedItem.DisplayValue;
-                _mainWindowViewModel.Title = SelectedText;
+                _mainWindowViewModel.Title.Value = SelectedText;
             }
             catch
             {

@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="500" Width="525" >
+        Title="{Binding Title.Value}" Height="500" Width="525" >
     <Grid>
         <StackPanel>
             <Label Content="システム時刻"/>
-            <Label Content="{Binding SystemDateLabel}"/>
+            <Label Content="{Binding SystemDateLabel.Value}"/>
             <Button Content="システム時刻更新" Command="{Binding SystemDateUpdateButton}"/>
-            <Button Content="Show View A" Command="{Binding ShowViewAButton}"/>
+            <Button Content="Show View A" Command="{Binding ShowViewAButton}" IsEnabled="{Binding ShowAEnabled.Value}"/>
             <Button Content="Show View B" Command="{Binding ShowViewBButton}"/>
             <Button Content="Show View C" Command="{Binding ShowViewCButton}"/>
             <Button Content="Show View D ListBox, ComboBox" Command="{Binding ShowViewDButton}"/>
