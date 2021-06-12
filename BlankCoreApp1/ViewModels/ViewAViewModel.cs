@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace BlankCoreApp1.ViewModels
 {
-    public class View1ViewModel : BindableBase
+    public class ViewAViewModel : BindableBase
     {
-        public View1ViewModel()
+        public ViewAViewModel()
         {
 
         }
