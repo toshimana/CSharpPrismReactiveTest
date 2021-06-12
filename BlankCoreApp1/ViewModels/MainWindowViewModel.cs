@@ -56,6 +56,13 @@ namespace BlankCoreApp1.ViewModels
             _dialogService.ShowDialog(nameof(ViewC), p, ViewCClose);
         }
 
+        public DelegateCommand ShowViewDButton { get; }
+
+        public void ShowViewDButtonExecute()
+        {
+            _regionManager.RequestNavigate("ContentRegion", nameof(ViewD));
+        }
+
         private void ViewCClose(IDialogResult dialogResult)
         {
             if (dialogResult.Result == ButtonResult.OK)
@@ -73,6 +80,7 @@ namespace BlankCoreApp1.ViewModels
             ShowViewAButton = new DelegateCommand(ShowViewAButtonExecute);
             ShowViewBButton = new DelegateCommand(ShowViewBButtonExecute);
             ShowViewCButton = new DelegateCommand(ShowViewCButtonExecute);
+            ShowViewDButton = new DelegateCommand(ShowViewDButtonExecute);
         }
     }
 }

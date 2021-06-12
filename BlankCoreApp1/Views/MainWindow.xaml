@@ -12,6 +12,7 @@
             <Button Content="Show View A" Command="{Binding ShowViewAButton}"/>
             <Button Content="Show View B" Command="{Binding ShowViewBButton}"/>
             <Button Content="Show View C" Command="{Binding ShowViewCButton}"/>
+            <Button Content="Show View D" Command="{Binding ShowViewDButton}"/>
             <ContentControl prism:RegionManager.RegionName="ContentRegion" />
         </StackPanel>
     </Grid>
