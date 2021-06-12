@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="BlankCoreApp1.Views.ViewC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <StackPanel>
+        <Label Content="ViewC 画面" FontSize="30" Foreground="Blue"/>
+        <TextBox Text="{Binding ViewCTextBox}"/>
+        <Button Content="OK" Command="{Binding OKButton}"/>
+    </StackPanel>
+</UserControl>
