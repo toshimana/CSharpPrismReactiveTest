@@ -28,6 +28,7 @@ namespace BlankCoreApp1.ViewModels
 
         public void SystemDateUpdateButtonExecute()
         {
+            ShowAEnabled = true;
             SystemDateLabel = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         }
 
@@ -63,6 +64,13 @@ namespace BlankCoreApp1.ViewModels
             _regionManager.RequestNavigate("ContentRegion", nameof(ViewD));
         }
 
+        private bool _showAEnabled = false;
+        public bool ShowAEnabled
+        {
+            get { return _showAEnabled; }
+            set { SetProperty(ref _showAEnabled, value); }
+        }
+
         private void ViewCClose(IDialogResult dialogResult)
         {
             if (dialogResult.Result == ButtonResult.OK)
@@ -77,7 +85,7 @@ namespace BlankCoreApp1.ViewModels
             _dialogService = dialogService;
 
             SystemDateUpdateButton = new DelegateCommand(SystemDateUpdateButtonExecute);
-            ShowViewAButton = new DelegateCommand(ShowViewAButtonExecute);
+            ShowViewAButton = new DelegateCommand(ShowViewAButtonExecute).ObservesCanExecute(() => ShowAEnabled);
             ShowViewBButton = new DelegateCommand(ShowViewBButtonExecute);
             ShowViewCButton = new DelegateCommand(ShowViewCButtonExecute);
             ShowViewDButton = new DelegateCommand(ShowViewDButtonExecute);
