@@ -9,6 +9,8 @@ namespace BlankCoreApp1.ViewModels
 {
     public class ViewDViewModel : BindableBase
     {
+        MainWindowViewModel _mainWindowViewModel;
+
         private ObservableCollection<string> _areas = new ObservableCollection<string>();
 
         public ObservableCollection<string> Areas
@@ -46,6 +48,7 @@ namespace BlankCoreApp1.ViewModels
             {
                 var selectedItem = selectedItems[0] as ComboBoxViewModel;
                 SelectedText = selectedItem.Value + ":" + selectedItem.DisplayValue;
+                _mainWindowViewModel.Title = SelectedText;
             }
             catch
             {
@@ -53,8 +56,10 @@ namespace BlankCoreApp1.ViewModels
             }
         }
 
-        public ViewDViewModel()
+        public ViewDViewModel(MainWindowViewModel mainWindowViewModel)
         {
+            _mainWindowViewModel = mainWindowViewModel;
+
             _areas.Add("神戸");
             _areas.Add("神奈川");
             _areas.Add("金沢");
