@@ -56,7 +56,10 @@ namespace BlankCoreApp1.ViewModels
 
         public void ShowViewDButtonExecute()
         {
-            _regionManager.RequestNavigate("ContentRegion", nameof(ViewD));
+            var p = new NavigationParameters();
+            Action<string> set_title = title => Title.Value = title;
+            p.Add(nameof(ViewDViewModel.SelectedText.Subscribe), set_title);
+            _regionManager.RequestNavigate("ContentRegion", nameof(ViewD), p);
         }
 
 

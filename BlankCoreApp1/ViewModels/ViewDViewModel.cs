@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,8 @@ using System.Linq;
 
 namespace BlankCoreApp1.ViewModels
 {
-    public class ViewDViewModel : BindableBase
+    public class ViewDViewModel : BindableBase, IConfirmNavigationRequest
     {
-        MainWindowViewModel _mainWindowViewModel;
-
         public ReactiveCollection<string> Areas { get; } = new ReactiveCollection<string>();
         public ReactiveCollection<ComboBoxViewModel> Products { get; } = new ReactiveCollection<ComboBoxViewModel>();
 
@@ -34,10 +33,30 @@ namespace BlankCoreApp1.ViewModels
             }
         }
 
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            continuationCallback(true);
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var select_window = navigationContext.Parameters.GetValue<Action<string>>(nameof(SelectedText.Subscribe));
+            if (select_window != null) {
+                SelectedText.Subscribe(select_window);
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+        }
+
         public ViewDViewModel(MainWindowViewModel mainWindowViewModel)
         {
-            _mainWindowViewModel = mainWindowViewModel;
-
             Areas.Add("神戸");
             Areas.Add("神奈川");
             Areas.Add("金沢");
@@ -47,7 +66,6 @@ namespace BlankCoreApp1.ViewModels
             Products.Add(new ComboBoxViewModel(30, "傘"));
 
             ProductsSelectionChanged.WithSubscribe(ProductsSelectionChangedExecute);
-            SelectedText.Subscribe(title => _mainWindowViewModel.Title.Value = title);
         }
     }
 }
