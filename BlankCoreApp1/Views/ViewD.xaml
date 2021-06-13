@@ -14,7 +14,7 @@
                   DisplayMemberPath="DisplayValue"
                   Width="150"
                   Margin="10"
-                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay}">
+                  SelectedItem="{Binding SelectedProduct.Value, Mode=TwoWay}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding ProductsSelectionChanged}"
@@ -22,6 +22,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-        <Label Content="{Binding SelectedText}"/>
+        <Label Content="{Binding SelectedText.Value}"/>
     </StackPanel>
 </UserControl>

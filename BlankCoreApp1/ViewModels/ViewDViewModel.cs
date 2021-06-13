@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,44 +12,21 @@ namespace BlankCoreApp1.ViewModels
     {
         MainWindowViewModel _mainWindowViewModel;
 
-        private ObservableCollection<string> _areas = new ObservableCollection<string>();
+        public ReactiveCollection<string> Areas { get; } = new ReactiveCollection<string>();
+        public ReactiveCollection<ComboBoxViewModel> Products { get; } = new ReactiveCollection<ComboBoxViewModel>();
 
-        public ObservableCollection<string> Areas
-        {
-            get { return _areas; }
-            set { SetProperty(ref _areas, value); }
-        }
+        public ReactiveCommand<object[]> ProductsSelectionChanged { get; } = new ReactiveCommand<object[]>();
 
-        private ObservableCollection<ComboBoxViewModel> _products = new ObservableCollection<ComboBoxViewModel>();
-        public ObservableCollection<ComboBoxViewModel> Products
-        {
-            get { return _products; }
-            set { SetProperty(ref _products, value); }
-        }
+        public ReactiveProperty<string> SelectedText { get; } = new ReactiveProperty<string>("--");
 
-        public DelegateCommand<object[]> ProductsSelectionChanged { get; }
-
-        private string _selectedText = "--";
-        public string SelectedText
-        {
-            get { return _selectedText; }
-            set { SetProperty(ref _selectedText, value); }
-        }
-
-        private ComboBoxViewModel _selectedProduct = null;
-        public ComboBoxViewModel SelectedProduct
-        {
-            get { return _selectedProduct; }
-            set { SetProperty(ref _selectedProduct, value); }
-        }
+        public ReactiveProperty<ComboBoxViewModel> SelectedProduct { get; } = new ReactiveProperty<ComboBoxViewModel>();
 
         private void ProductsSelectionChangedExecute(object[] selectedItems)
         {
             try
             {
                 var selectedItem = selectedItems[0] as ComboBoxViewModel;
-                SelectedText = selectedItem.Value + ":" + selectedItem.DisplayValue;
-                _mainWindowViewModel.Title.Value = SelectedText;
+                SelectedText.Value = selectedItem.Value + ":" + selectedItem.DisplayValue;
             }
             catch
             {
@@ -60,15 +38,16 @@ namespace BlankCoreApp1.ViewModels
         {
             _mainWindowViewModel = mainWindowViewModel;
 
-            _areas.Add("神戸");
-            _areas.Add("神奈川");
-            _areas.Add("金沢");
+            Areas.Add("神戸");
+            Areas.Add("神奈川");
+            Areas.Add("金沢");
 
-            _products.Add(new ComboBoxViewModel(10, "パン"));
-            _products.Add(new ComboBoxViewModel(20, "珈琲牛乳"));
-            _products.Add(new ComboBoxViewModel(30, "傘"));
+            Products.Add(new ComboBoxViewModel(10, "パン"));
+            Products.Add(new ComboBoxViewModel(20, "珈琲牛乳"));
+            Products.Add(new ComboBoxViewModel(30, "傘"));
 
-            ProductsSelectionChanged = new DelegateCommand<object[]>(ProductsSelectionChangedExecute);
+            ProductsSelectionChanged.WithSubscribe(ProductsSelectionChangedExecute);
+            SelectedText.Subscribe(title => _mainWindowViewModel.Title.Value = title);
         }
     }
 }
