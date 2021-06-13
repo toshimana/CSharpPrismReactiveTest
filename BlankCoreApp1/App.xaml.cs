@@ -21,8 +21,6 @@ namespace BlankCoreApp1
             containerRegistry.RegisterForNavigation<ViewB>();
             containerRegistry.RegisterDialog<ViewC, ViewCViewModel>();
             containerRegistry.RegisterForNavigation<ViewD>();
-
-            containerRegistry.RegisterSingleton<MainWindowViewModel>();
         }
     }
 }
