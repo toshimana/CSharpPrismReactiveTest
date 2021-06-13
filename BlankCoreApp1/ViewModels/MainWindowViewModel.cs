@@ -64,7 +64,8 @@ namespace BlankCoreApp1.ViewModels
         {
             if (dialogResult.Result == ButtonResult.OK)
             {
-                SystemDateLabel.Value = dialogResult.Parameters.GetValue<string>(nameof(ViewCViewModel.ViewCTextBox.Value));
+                var result = dialogResult.Parameters.GetValue<string>(nameof(ViewCViewModel.ViewCTextBox.Value));
+                SystemDateLabel.Value = result;
             }
         }
 

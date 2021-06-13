@@ -17,8 +17,8 @@ namespace BlankCoreApp1.ViewModels
 
         public string Title => "ViewCのタイトル";
 
-        IDialogService _dialogService;
-        IMessageService _messageService;
+        private Func<System.Windows.MessageBoxResult> MsgQuestionFunc = () => System.Windows.MessageBoxResult.OK;
+        private Func<System.Windows.MessageBoxResult> MsgShowFunc = () => System.Windows.MessageBoxResult.OK;
 
         public ReactiveProperty<string> ViewCTextBox { get; } = new ReactiveProperty<string>("XXX");
 
@@ -26,32 +26,30 @@ namespace BlankCoreApp1.ViewModels
 
         private void OKButtonExecute()
         {
-            //            MessageBox.Show("Saveします");
-            //var message = new DialogParameters();
-            //message.Add(nameof(MessageBoxViewViewModel.Message), "Saveします");
-            //_dialogService.ShowDialog(nameof(MessageBoxView), message, null);
-
-            if (_messageService.Question("保存しますか？") == MessageBoxResult.OK)
+            if (MsgQuestionFunc() == MessageBoxResult.OK)
             {
-                _messageService.ShowDialog("Saveしました。");
+                MsgShowFunc();
+
+                var p = new DialogParameters();
+                p.Add(nameof(ViewCTextBox.Value), ViewCTextBox.Value);
+                RequestClose?.Invoke(new DialogResult(ButtonResult.OK, p));
             }
-
-            var p = new DialogParameters();
-            p.Add(nameof(ViewCTextBox.Value), ViewCTextBox);
-            RequestClose?.Invoke(new DialogResult(ButtonResult.OK, p));
         }
 
-        public ViewCViewModel(IDialogService dialogService)
-            : this(dialogService, new MessageService())
+        public ViewCViewModel()
+            : this(new MessageService())
         {
         }
 
-        public ViewCViewModel(IDialogService dialogService, IMessageService messageService)
+        public ViewCViewModel(IMessageService messageService)
         {
-            _dialogService = dialogService;
-            _messageService = messageService;
-
             OKButton.WithSubscribe(OKButtonExecute);
+        }
+
+        public void Initialize(Func<MessageBoxResult> msgQuestionFunc, Func<MessageBoxResult> msgShowFunc)
+        {
+            MsgQuestionFunc = msgQuestionFunc;
+            MsgShowFunc = msgShowFunc;
         }
 
         public bool CanCloseDialog()
