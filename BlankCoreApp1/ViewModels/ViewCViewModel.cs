@@ -31,7 +31,7 @@ namespace BlankCoreApp1.ViewModels
                 MsgShowFunc();
 
                 var p = new DialogParameters();
-                p.Add(nameof(ViewCTextBox.Value), ViewCTextBox.Value);
+                p.Add(nameof(ViewCTextBox.Value), ViewCTextBox);
                 RequestClose?.Invoke(new DialogResult(ButtonResult.OK, p));
             }
         }
