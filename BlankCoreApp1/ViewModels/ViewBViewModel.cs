@@ -11,18 +11,18 @@ namespace BlankCoreApp1.ViewModels
 {
     public class ViewBViewModel : BindableBase, IConfirmNavigationRequest
     {
-        IMessageService _messageService;
-
         public ReactiveProperty<string> MyLabel { get; } = new ReactiveProperty<string>(string.Empty);
 
-        public ViewBViewModel() : this(new MessageService())
+        private Func<System.Windows.MessageBoxResult> MsgFunc = () => System.Windows.MessageBoxResult.OK;
+
+        public ViewBViewModel()
         {
 
         }
 
-        public ViewBViewModel(IMessageService messageService)
+        public void Initialize(Func<System.Windows.MessageBoxResult> msg_func)
         {
-            _messageService = messageService;
+            MsgFunc = msg_func;
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
@@ -41,7 +41,7 @@ namespace BlankCoreApp1.ViewModels
 
         public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
         {
-            if (_messageService.Question("保存せず閉じますか？") == System.Windows.MessageBoxResult.OK)
+            if (MsgFunc() == System.Windows.MessageBoxResult.OK)
             {
                 continuationCallback(true);
             }
