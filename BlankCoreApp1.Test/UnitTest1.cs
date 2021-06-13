@@ -1,8 +1,4 @@
-using BlankCoreApp1.Services;
 using BlankCoreApp1.ViewModels;
-using Moq;
-using Prism.Services.Dialogs;
-using System;
 using Xunit;
 
 namespace BlankCoreApp1.Test
@@ -12,10 +8,7 @@ namespace BlankCoreApp1.Test
         [Fact]
         public void Test1()
         {
-            var dialogServiceMock = new Mock<IDialogService>();
-            var messageServiceMock = new Mock<IMessageService>();
-
-            var vm = new ViewCViewModel(dialogServiceMock.Object, messageServiceMock.Object);
+            var vm = new ViewCViewModel();
             vm.OKButton.Execute();
         }
     }

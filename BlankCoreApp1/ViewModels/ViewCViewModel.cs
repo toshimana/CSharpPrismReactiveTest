@@ -1,12 +1,7 @@
-﻿using BlankCoreApp1.Services;
-using BlankCoreApp1.Views;
-using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using Reactive.Bindings;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace BlankCoreApp1.ViewModels
@@ -31,17 +26,12 @@ namespace BlankCoreApp1.ViewModels
                 MsgShowFunc();
 
                 var p = new DialogParameters();
-                p.Add(nameof(ViewCTextBox.Value), ViewCTextBox);
+                p.Add(nameof(ViewCTextBox.Value), ViewCTextBox.Value);
                 RequestClose?.Invoke(new DialogResult(ButtonResult.OK, p));
             }
         }
 
         public ViewCViewModel()
-            : this(new MessageService())
-        {
-        }
-
-        public ViewCViewModel(IMessageService messageService)
         {
             OKButton.WithSubscribe(OKButtonExecute);
         }

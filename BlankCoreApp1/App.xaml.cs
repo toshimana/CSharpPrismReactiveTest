@@ -21,7 +21,6 @@ namespace BlankCoreApp1
             containerRegistry.RegisterForNavigation<ViewB>();
             containerRegistry.RegisterDialog<ViewC, ViewCViewModel>();
             containerRegistry.RegisterForNavigation<ViewD>();
-            containerRegistry.RegisterDialog<MessageBoxView, MessageBoxViewViewModel>();
 
             containerRegistry.RegisterSingleton<MainWindowViewModel>();
         }
